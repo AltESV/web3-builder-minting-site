@@ -1,0 +1,78 @@
+.App {
+    /* background-color: yellow; */
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    background-color: black;
+    width: 960px;
+    height: 500px;
+    border-radius: 15px;
+    /* key to making card */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.bg-video {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: -1;
+    /* below makes it fit into entire screen */
+    object-fit: cover;
+}
+
+.image {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+.nft-video {
+    width: 400px;
+    height: 400px;
+}
+
+.information {
+    color: white;
+    /* background-color: yellow; */
+    width: 50%;
+}
+
+.button {
+    border-radius: 30px;
+    color: black;
+    font-weight: bold;
+    padding: 10px 50px;
+}
+
+.footer {
+    height: 30px;
+    background-color: #1817dd;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
