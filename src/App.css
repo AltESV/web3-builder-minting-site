@@ -52,24 +52,43 @@
 }
 
 .button {
-    border-radius: 30px;
+    /* border-radius: 30px;
     color: black;
     font-weight: bold;
     padding: 10px 50px;
+    background: #E9EDE6; */
+    background-image: linear-gradient(to right, #ECE9E6 0%, #FFFFFF  51%, #ECE9E6  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    transition: 0.3s;
+    background-size: 200% auto;
+    color: black;
+    font-weight: bold;            
+    box-shadow: 0 0 5px #eee;
+    border-radius: 30px;
+    display: block;
+    border: none;
+    cursor: pointer;
 }
 
+/* effect shows better on white background */
+.button:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: grey;
+    text-decoration: none;
+  }
+
+
 .footer {
-    height: 30px;
-    background-color: #1817dd;
+    height: 50px;
+    background-color: #1E0E40;
+    font-weight: bold;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-
-
-
 
 
 
