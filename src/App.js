@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState, useEffect } from "react";
 import './App.css';
 import bgVideo from "./assets/background.mp4";
 import nftvideo from "./assets/nftvideo.mp4";
@@ -10,16 +10,34 @@ import abi from "./contracts/contract.json";
 
 function App() {
 // saves user wallet and supply in session storage 
-  const [supply, setSupply] = useState(0);
-  const [account, setAccount] = useState() 
-  const [inProgress, setInProgress] = useState(false);
+  const [inProgress, setInProgress] = useState(false);  
   const [completed, setCompleted] = useState(false);
+  const [account, setAccount] = useState();
+  const [supply, setSupply] = useState(0);
+  const [contract, setContract] = useState();
+  const [hash, setHash] = useState("");
+  
 
   const mint = async () => {
-
+    const options = {value: ethers.utils.parseEther("0.01")};
+    const transaction = await contract.safeMint(1, options);
+    setHash(transaction.hash);
+    setInProgress(true);
+    await transaction.wait();
+    setInProgress(false);
+    setCompleted(true);
   }
 
+
+  useEffect(() => {
+    if(contract) {
+    getTotalSupply();}
+  }, [contract]);
+
   const getTotalSupply = async () =>{
+    // gives you total supply to feed into mint count on website
+    const totalSupply = await contract.totalSupply()
+    setSupply(totalSupply.toNumber());
 
   }
 
@@ -34,11 +52,8 @@ function App() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner(walletAccount);
       const NFTContract = new ethers.Contract(contractAddress, abi, signer);
+      setContract(NFTContract);
       
-// gives you total supply to feed into mint count on website
-      const name = await NFTContract.name()
-      const totalSupply = await NFTContract.totalSupply()
-      setSupply(totalSupply.toNumber());
       
     }
 
@@ -46,7 +61,7 @@ function App() {
 
   const getState = () => { 
       if(inProgress){
-        return <InProgressMinting  />
+        return <InProgressMinting hash={hash}/>
       }
 
       if(completed){
@@ -54,7 +69,7 @@ function App() {
       }
 
       return (
-        <StartMinting />
+        <StartMinting mint={mint}/>
       )
   }
 
@@ -80,7 +95,9 @@ function App() {
               <h2>Web3 Builders Into The Metaverse</h2>
               <p>{supply} Minted / 200 💎</p>
               {/* shows different button depending on if wallet connected*/}
-              {account ? <button onClick={login} class="button">MINT</button> :
+              {account ? 
+                getState()
+               :
               <button onClick={login} class="button">CONNECT WALLET</button>
               }
     
