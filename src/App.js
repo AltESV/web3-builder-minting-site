@@ -9,7 +9,7 @@ import { ethers } from "ethers";
 import abi from "./contracts/contract.json";
 
 function App() {
-// saves user wallet and supply in session storage 
+
   const [inProgress, setInProgress] = useState(false);  
   const [completed, setCompleted] = useState(false);
   const [account, setAccount] = useState();
@@ -35,7 +35,7 @@ function App() {
   }, [contract]);
 
   const getTotalSupply = async () =>{
-    // gives you total supply to feed into mint count on website
+  
     const totalSupply = await contract.totalSupply()
     setSupply(totalSupply.toNumber());
 
